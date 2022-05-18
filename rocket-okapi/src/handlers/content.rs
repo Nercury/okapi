@@ -58,7 +58,8 @@ where
         if req.uri().path().ends_with('/') {
             Outcome::forward(data)
         } else {
-            let content: (_, Vec<u8>) = (self.content.0.clone(), self.content.1.as_ref().into());
+            let content: (ContentType, Vec<u8>) =
+                (self.content.0.clone(), self.content.1.as_ref().into());
             match content.respond_to(req) {
                 Ok(response) => Outcome::Success(response),
                 Err(status) => Outcome::Failure(status),
